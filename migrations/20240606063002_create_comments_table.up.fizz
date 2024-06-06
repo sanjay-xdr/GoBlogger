@@ -1,0 +1,6 @@
+create_table("Comments"){
+    t.Column("id","uuid", {primary:true})
+    t.Column("comment","string",{"size":600})
+    t.Column("userId","uuid",{})
+    t.Column("articleId","uuid",{})
+}

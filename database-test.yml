@@ -1,0 +1,11 @@
+//Rename this file to database.yml
+
+development:
+  dialect: postgres
+  database: ENTER YOUR_DBNAME
+  user: ENTER_YOUR_USERNAME
+  password: ENTER_YOUR_PASSWORD
+  host: 127.0.0.1
+  pool: 5
+
+
