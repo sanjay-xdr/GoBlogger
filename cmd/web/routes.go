@@ -11,7 +11,7 @@ func Routes() http.Handler {
 
 	mux := chi.NewRouter()
 
-	mux.Use(loggerfun)
+	mux.Use(loggerfunc)
 	mux.Get("/", handlers.HomePage)
 
 	return mux

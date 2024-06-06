@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func loggerfun(next http.Handler) http.Handler {
+func loggerfunc(next http.Handler) http.Handler {
 	file, err := os.OpenFile("logger.txt", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatal(err)
