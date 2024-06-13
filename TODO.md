@@ -1,0 +1,2 @@
+- Create a Template Cache
+- Refactor code to use a base layout

@@ -8,12 +8,13 @@ import (
 	"text/template"
 )
 
-var tc map[string]*template.Template
 var pathToTemplates = "./templates"
 
-func RenderTemplate(w http.ResponseWriter, html string) {
+func RenderTemplate(w http.ResponseWriter, html string, data string) {
 
 	var tc map[string]*template.Template
+
+	//check if template already exists in cache or  not TODO:
 	tc, _ = CreateTemplateCache()
 
 	t, ok := tc[html]
@@ -23,7 +24,8 @@ func RenderTemplate(w http.ResponseWriter, html string) {
 	}
 
 	// buf := new(bytes.Buffer)
-	err := t.Execute(w, nil)
+	err := t.Execute(w, data)
+
 	// _, err := buf.WriteTo(w)
 	if err != nil {
 		log.Fatal("Something Went Wrong")
@@ -43,7 +45,7 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 
 	for _, page := range tmpl {
 
-		name := filepath.Base(page) //this only returns the name of the file
+		name := filepath.Base(page)
 		fmt.Print(name)
 		ts, err := template.New(name).ParseFiles(page)
 

@@ -25,8 +25,8 @@ func Routes() http.Handler {
 	mux.Post("/user/{id}", handlers.UpdateUserById)
 
 	//blogs
-	mux.Get("/blog", handlers.GetAllBlogs)
+	mux.Get("/blogs", handlers.GetAllBlogs)
 	mux.Get("/blog/{id}", handlers.GetBlogById)
 
-	return mux
+	return mux;
 }
