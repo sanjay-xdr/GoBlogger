@@ -3,6 +3,7 @@ package handlers
 import (
 	"database/sql"
 	"fmt"
+	"log"
 	"net/http"
 	"time"
 
@@ -35,6 +36,12 @@ func NewHandlers(r *Repositry) {
 func (m *Repositry) Login(w http.ResponseWriter, r *http.Request) {
 
 	//return the login page
+	data, err := m.DbConn.GetUserById(1)
+
+	if err != nil {
+		log.Fatal("somethign went wronig ")
+	}
+
 	render.RenderTemplate(w, "login.page.html", "")
 }
 
