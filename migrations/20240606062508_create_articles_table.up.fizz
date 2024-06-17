@@ -1,8 +1,0 @@
-create_table("Blogs"){
-    t.Column("id","uuid", {primary:true})
-    t.Column("heading","string",{"size":500})
-    t.Column("subHeading","string", {"size":600})
-    t.Column("content","string",{"size":5000})
-    t.Column("userId","uuid",{})
-    t.Column("commentId","uuid",{})
-}

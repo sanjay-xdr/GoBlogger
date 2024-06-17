@@ -1,7 +1,0 @@
-create_table("Users") {
-    t.Column("id", "uuid", {primary: true})
-    t.Column("firstName","string")
-    t.Column("lastName","string")
-     t.Column("email", "string", {})
-     t.Column("password","string")
-}

@@ -7,6 +7,7 @@ import (
 
 	"github.com/sanjay-xdr/goblogger/internals/config"
 	"github.com/sanjay-xdr/goblogger/internals/driver"
+	"github.com/sanjay-xdr/goblogger/internals/handlers"
 	"github.com/sanjay-xdr/goblogger/internals/render"
 )
 
@@ -22,6 +23,9 @@ func main() {
 	if err != nil {
 		log.Fatal("Not able to connect to db ")
 	}
+
+	repo := handlers.NewRepo(configurations, db)
+	handlers.NewHandlers(repo)
 
 	defer db.Close()
 

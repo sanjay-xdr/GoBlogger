@@ -1,6 +1,8 @@
 package config
 
-import "text/template"
+import (
+	"text/template"
+)
 
 type AppConfig struct {
 	templateCache map[string]*template.Template

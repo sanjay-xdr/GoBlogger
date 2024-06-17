@@ -15,10 +15,10 @@ func Routes() http.Handler {
 	mux.Get("/", handlers.HomePage)
 
 	//auth
-	mux.Get("/login", handlers.Login)
+	mux.Get("/login", handlers.Repo.Login)
 	mux.Post("/login", handlers.PostLogin)
 	mux.Get("/signup", handlers.SignUp)
-	mux.Post("/signup", handlers.PostSignUp)
+	mux.Post("/signup", handlers.Repo.PostSignUp)
 
 	//users
 	mux.Get("/user/{id}", handlers.GetUserById)
@@ -28,5 +28,5 @@ func Routes() http.Handler {
 	mux.Get("/blogs", handlers.GetAllBlogs)
 	mux.Get("/blog/{id}", handlers.GetBlogById)
 
-	return mux;
+	return mux
 }
