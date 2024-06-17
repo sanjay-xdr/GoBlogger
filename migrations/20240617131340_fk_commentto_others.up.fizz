@@ -1,0 +1,10 @@
+add_foreign_key("comments", "userId", {"users": ["id"]}, {
+    "on_delete": "cascade",
+    "on_update": "cascade",
+})
+
+
+add_foreign_key("comments", "blogid", {"blogs": ["id"]}, {
+    "on_delete": "cascade",
+    "on_update": "cascade",
+})
