@@ -36,7 +36,7 @@ func NewHandlers(r *Repositry) {
 func (m *Repositry) Login(w http.ResponseWriter, r *http.Request) {
 
 	//return the login page
-	data, err := m.DbConn.GetUserById(1)
+	_, err := m.DbConn.GetUserById(1)
 
 	if err != nil {
 		log.Fatal("somethign went wronig ")

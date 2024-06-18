@@ -4,5 +4,4 @@ create_table("blogs"){
     t.Column("subHeading","string", {"size":600})
     t.Column("content","string",{"size":5000})
     t.Column("userId","integer",{})
-    t.Column("commentId","integer",{})
 }
