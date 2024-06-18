@@ -53,6 +53,18 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 			return tc, err
 		}
 
+		matches, err := filepath.Glob(fmt.Sprintf("%s/*.layout.html", pathToTemplates)) //find the layout
+		if err != nil {
+			return tc, err
+		}
+
+		if len(matches) > 0 {
+			ts, err = ts.ParseGlob(fmt.Sprintf("%s/*.layout.html", pathToTemplates)) //attach the layout result to existing template
+			if err != nil {
+				return tc, err
+			}
+		}
+
 		tc[name] = ts
 
 	}

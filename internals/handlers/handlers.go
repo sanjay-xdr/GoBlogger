@@ -112,3 +112,8 @@ func GetAllBlogs(w http.ResponseWriter, r *http.Request) {
 func GetBlogById(w http.ResponseWriter, r *http.Request) {
 	//return the blog by id with comments
 }
+
+func CreateBlog(w http.ResponseWriter, r *http.Request) {
+
+	render.RenderTemplate(w, "createblog.page.html", "")
+}
