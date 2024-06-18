@@ -1,0 +1,49 @@
+{{template "base" .}}
+
+
+{{define "content"}}
+<div class="container">
+    <!-- Create new blog section -->
+    <section class="section">
+      <div class="content">
+        <h1 class="title">Create New Blog</h1>
+
+        <form>
+          <!-- Heading -->
+          <div class="field">
+            <label class="label">Heading</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Enter the heading" required>
+            </div>
+          </div>
+
+          <!-- Subheading -->
+          <div class="field">
+            <label class="label">Subheading</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Enter the subheading" required>
+            </div>
+          </div>
+
+          <!-- Main Content -->
+          <div class="field">
+            <label class="label">Main Content</label>
+            <div class="control">
+              <textarea class="textarea" placeholder="Write your main content here..." required></textarea>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="field">
+            <div class="control">
+              <button class="button is-primary" type="submit">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+
+
+
+{{end}}
