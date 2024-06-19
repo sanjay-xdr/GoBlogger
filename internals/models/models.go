@@ -12,6 +12,7 @@ type User struct {
 }
 
 type Blog struct {
+	Id         int
 	Heading    string
 	SubHeading string
 	Content    string

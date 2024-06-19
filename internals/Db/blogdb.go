@@ -41,7 +41,7 @@ func (m *PostgresDBRepo) GetAllBlogs() ([]models.Blog, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
-	stmt := `select  heading, "subHeading" , content , "userId" , created_at , updated_at from blogs`
+	stmt := `select id, heading, "subHeading" , content , "userId" , created_at , updated_at from blogs`
 	row, err := m.DB.QueryContext(ctx, stmt)
 	if err != nil {
 		log.Fatal("Not able to read rows")
@@ -49,7 +49,7 @@ func (m *PostgresDBRepo) GetAllBlogs() ([]models.Blog, error) {
 
 	for row.Next() {
 		var blog models.Blog
-		err := row.Scan(&blog.Heading, &blog.SubHeading, &blog.Content, &blog.UserId, &blog.CreatedAt, &blog.UpdatedAt)
+		err := row.Scan(&blog.Id, &blog.Heading, &blog.SubHeading, &blog.Content, &blog.UserId, &blog.CreatedAt, &blog.UpdatedAt)
 		if err != nil {
 			log.Fatal("Not able to read rows")
 		}

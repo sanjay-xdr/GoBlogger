@@ -12,6 +12,7 @@ func Routes() http.Handler {
 	mux := chi.NewRouter()
 
 	mux.Use(loggerfunc)
+	mux.Use(SessionLoad)
 	mux.Get("/", handlers.HomePage)
 
 	//auth
@@ -26,7 +27,7 @@ func Routes() http.Handler {
 
 	//blogs
 	mux.Get("/blogs", handlers.Repo.GetAllBlogs)
-	mux.Get("/blog/{id}", handlers.GetBlogById)
+	mux.Get("/blog/{id}", handlers.Repo.GetBlogById)
 	mux.Get("/user/{id}/createblog", handlers.CreateBlog)
 	mux.Post("/user/{id}/createblog", handlers.Repo.PostCreateBlog)
 

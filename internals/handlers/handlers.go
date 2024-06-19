@@ -80,7 +80,6 @@ func (m *Repositry) PostSignUp(w http.ResponseWriter, r *http.Request) {
 	}
 
 	m.App.Session.Put(r.Context(), "userid", userid)
-	http.Redirect(w, r, "/blogs", http.StatusSeeOther)
 
 }
 
@@ -102,11 +101,6 @@ func (m *Repositry) GetAllBlogs(w http.ResponseWriter, r *http.Request) {
 
 	//render all blogs
 
-	userid, ok := m.App.Session.Get(r.Context(), "userid").(int)
-
-	if !ok {
-		log.Println("Can't get userid from the session")
-	}
 	blogs, err := m.DbConn.GetAllBlogs()
 	if err != nil {
 		log.Fatal("SOmethign wrong ")
@@ -124,12 +118,22 @@ func (m *Repositry) GetAllBlogs(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func GetBlogById(w http.ResponseWriter, r *http.Request) {
+func (m *Repositry) GetBlogById(w http.ResponseWriter, r *http.Request) {
 	//return the blog by id with comments
 
 	//TODO: get the id from the paramenter and
 	//find that blog and comments with it and display here
-	render.RenderTemplate(w, "blog.page.html", &models.TemplateData{})
+	userid, ok := m.App.Session.Get(r.Context(), "userid").(int)
+
+	var mapdata = make(map[string]int)
+	mapdata["userid"] = userid
+
+	if !ok {
+		log.Println("Can't get userid from the session")
+	}
+	render.RenderTemplate(w, "blog.page.html", &models.TemplateData{
+		IntMap: mapdata,
+	})
 }
 
 func CreateBlog(w http.ResponseWriter, r *http.Request) {

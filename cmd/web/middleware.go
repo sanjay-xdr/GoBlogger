@@ -27,3 +27,7 @@ func loggerfunc(next http.Handler) http.Handler {
 	})
 
 }
+
+func SessionLoad(next http.Handler) http.Handler {
+	return sessionManager.LoadAndSave(next)
+}
