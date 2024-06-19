@@ -125,6 +125,10 @@ func (m *Repositry) GetAllBlogs(w http.ResponseWriter, r *http.Request) {
 
 func GetBlogById(w http.ResponseWriter, r *http.Request) {
 	//return the blog by id with comments
+
+	//TODO: get the id from the paramenter and
+	//find that blog and comments with it and display here
+	render.RenderTemplate(w, "blog.page.html", &models.TemplateData{})
 }
 
 func CreateBlog(w http.ResponseWriter, r *http.Request) {

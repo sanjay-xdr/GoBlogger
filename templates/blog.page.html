@@ -1,0 +1,88 @@
+{{template "base" .}}
+
+
+{{define "content"}}
+
+
+<section class="section">
+    <div class="container">
+      <div class="content">
+        <h1 class="subtitle is-2">What is Nullish Coalescing Operator?</h1>
+        <p class="subtitle is-5">Agar koi subtitle ho toh yaaha por add kr do wrna rhne dena </p>
+        <div class="media">
+          <figure class="media-left">
+            <p class="image is-48x48">
+              <img src="https://via.placeholder.com/48x48" alt="Sanjay Jaiswal">
+            </p>
+          </figure>
+          <div class="media-content">
+            <p>
+              <strong>Sanjay Jaiswal</strong> <small>· Jan 10, 2022 · 1 min read</small>
+            </p>
+          </div>
+        </div>
+        <div class="content">
+          <p>In this blog we are going to learn about Nullish coalescing operator denoted by (??) and how it is different from OR operator.</p>
+          <p><strong>Nullish Coalescing:</strong> It is a logical operator that returns its right-hand side operand when its left-hand side operand is null or undefined, and otherwise returns its left-hand side operand.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h3 class="title is-4">Comments</h3>
+
+    <div class="box">
+        <article class="media">
+          <div class="media-content">
+            <div class="field">
+              <label class="label">Add a comment</label>
+              <div class="control">
+                <textarea class="textarea" placeholder="Write your comment here..."></textarea>
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                <button class="button is-primary" onclick="addComment()">Post comment</button>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    
+    <!-- Existing comments -->
+    <div id="comments">
+      <div class="box">
+        <article class="media">
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>John Doe</strong> <small>@johndoe</small> <small>31m ago</small>
+                <br>
+                Great post! Really enjoyed reading it.
+              </p>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="box">
+        <article class="media">
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>Jane Smith</strong> <small>@janesmith</small> <small>1h ago</small>
+                <br>
+                Very informative. Thanks for sharing!
+              </p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Add new comment -->
+ 
+  </section>
+
+
+  {{end}}
