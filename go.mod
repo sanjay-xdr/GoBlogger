@@ -5,6 +5,7 @@ go 1.21.0
 require github.com/go-chi/chi v1.5.5
 
 require (
+	github.com/alexedwards/scs/v2 v2.8.0 // indirect
 	github.com/jackc/puddle/v2 v2.2.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	golang.org/x/sync v0.1.0 // indirect

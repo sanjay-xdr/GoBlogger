@@ -37,6 +37,7 @@ func (m *Repositry) Login(w http.ResponseWriter, r *http.Request) {
 
 	//return the login page
 	_, err := m.DbConn.GetUserById(1)
+	m.App.Session.Put(r.Context(), "message", "Hello from a session!")
 
 	if err != nil {
 		log.Fatal("somethign went wronig ")
@@ -116,4 +117,13 @@ func GetBlogById(w http.ResponseWriter, r *http.Request) {
 func CreateBlog(w http.ResponseWriter, r *http.Request) {
 
 	render.RenderTemplate(w, "createblog.page.html", "")
+}
+
+func PostCreateBlog(w http.ResponseWriter, r *http.Request) {
+
+	//Here Add the Blog to database
+	//TODO: get userid in session
+
+	http.Redirect(w, r, "/blogs", http.StatusSeeOther)
+
 }

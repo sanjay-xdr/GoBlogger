@@ -8,35 +8,35 @@
       <div class="content">
         <h1 class="title">Create New Blog</h1>
 
-        <form>
+        <form method="POST" action="/">
           <!-- Heading -->
           <div class="field">
-            <label class="label">Heading</label>
+            <label class="label" for="heading"  >Heading</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Enter the heading" required>
+              <input class="input" name="heading" type="text" placeholder="Enter the heading" required>
             </div>
           </div>
 
           <!-- Subheading -->
           <div class="field">
-            <label class="label">Subheading</label>
+            <label for="subheading" class="label">Subheading</label>
             <div class="control"> 
-              <input class="input" type="text" placeholder="Enter the subheading" required>
+              <input class="input" name="subheading" type="text" placeholder="Enter the subheading" required>
             </div>
           </div>
 
           <!-- Main Content -->
           <div class="field">
-            <label class="label">Main Content</label>
+            <label class="label" for="content">Main Content</label>
             <div class="control">
-              <textarea class="textarea" placeholder="Write your main content here..." required></textarea>
+              <textarea class="textarea" name="content" placeholder="Write your main content here..." required></textarea>
             </div>
           </div>
 
           <!-- Submit Button -->
           <div class="field">
             <div class="control">
-              <button class="button is-primary" type="submit">Submit</button>
+              <input class="button is-primary" type="submit" />
             </div>
           </div>
         </form>
