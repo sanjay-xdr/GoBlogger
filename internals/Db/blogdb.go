@@ -3,6 +3,7 @@ package Db
 import (
 	"context"
 	"database/sql"
+	"fmt"
 	"log"
 	"time"
 
@@ -33,6 +34,32 @@ func (m *PostgresDBRepo) UpdateBlogs(blog models.Blog, id int) error {
 	return nil
 }
 
+func (m *PostgresDBRepo) GetAllBlogs() ([]models.Blog, error) {
+
+	var bloglist []models.Blog
+
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	stmt := `select  heading, "subHeading" , content , "userId" , created_at , updated_at from blogs`
+	row, err := m.DB.QueryContext(ctx, stmt)
+	if err != nil {
+		log.Fatal("Not able to read rows")
+	}
+
+	for row.Next() {
+		var blog models.Blog
+		err := row.Scan(&blog.Heading, &blog.SubHeading, &blog.Content, &blog.UserId, &blog.CreatedAt, &blog.UpdatedAt)
+		if err != nil {
+			log.Fatal("Not able to read rows")
+		}
+		bloglist = append(bloglist, blog)
+	}
+
+	fmt.Print(bloglist)
+	return bloglist, nil
+
+}
 func (m *PostgresDBRepo) GetBlogById(id int) (models.Blog, error) {
 
 	var blog models.Blog
@@ -47,7 +74,7 @@ func (m *PostgresDBRepo) GetBlogById(id int) (models.Blog, error) {
 		if sql.ErrNoRows == err {
 			log.Fatal("THere is no row")
 		}
-		log.Fatal("Something went wrong", err)
+		log.Fatal("Something went wrong in dbfun", err)
 	}
 	return blog, nil
 

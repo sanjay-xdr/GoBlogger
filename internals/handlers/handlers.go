@@ -43,7 +43,7 @@ func (m *Repositry) Login(w http.ResponseWriter, r *http.Request) {
 		log.Fatal("somethign went wronig ")
 	}
 
-	render.RenderTemplate(w, "login.page.html", "")
+	render.RenderTemplate(w, "login.page.html", &models.TemplateData{})
 }
 
 func PostLogin(w http.ResponseWriter, r *http.Request) {
@@ -61,7 +61,7 @@ func PostLogin(w http.ResponseWriter, r *http.Request) {
 func SignUp(w http.ResponseWriter, r *http.Request) {
 
 	//return the signup page
-	render.RenderTemplate(w, "signup.page.html", "")
+	render.RenderTemplate(w, "signup.page.html", &models.TemplateData{})
 }
 
 func (m *Repositry) PostSignUp(w http.ResponseWriter, r *http.Request) {
@@ -99,14 +99,27 @@ func UpdateUserById(w http.ResponseWriter, r *http.Request) {
 
 func HomePage(w http.ResponseWriter, r *http.Request) {
 
-	render.RenderTemplate(w, "home.page.html", "")
+	render.RenderTemplate(w, "home.page.html", &models.TemplateData{})
 
 }
 
-func GetAllBlogs(w http.ResponseWriter, r *http.Request) {
+func (m *Repositry) GetAllBlogs(w http.ResponseWriter, r *http.Request) {
 
 	//render all blogs
-	render.RenderTemplate(w, "blogs.page.html", "")
+	blogs, err := m.DbConn.GetAllBlogs()
+	if err != nil {
+		log.Fatal("SOmethign wrong ")
+	}
+	// finalData := make(map[string]interface{})
+	// finalData["blogs"] = data
+	// fmt.Print(data)
+
+	data := &models.TemplateData{
+		Data: map[string]interface{}{
+			"blogs": blogs,
+		},
+	}
+	render.RenderTemplate(w, "blogs.page.html", data)
 
 }
 
@@ -116,7 +129,7 @@ func GetBlogById(w http.ResponseWriter, r *http.Request) {
 
 func CreateBlog(w http.ResponseWriter, r *http.Request) {
 
-	render.RenderTemplate(w, "createblog.page.html", "")
+	render.RenderTemplate(w, "createblog.page.html", &models.TemplateData{})
 }
 
 func (m *Repositry) PostCreateBlog(w http.ResponseWriter, r *http.Request) {

@@ -1,34 +1,48 @@
 package render
 
 import (
+	"bytes"
 	"fmt"
 	"log"
 	"net/http"
 	"path/filepath"
 	"text/template"
+
+	"github.com/sanjay-xdr/goblogger/internals/models"
 )
 
 var pathToTemplates = "./templates"
 
-func RenderTemplate(w http.ResponseWriter, html string, data string) {
+func RenderTemplate(w http.ResponseWriter, html string, data *models.TemplateData) {
 
+	fmt.Print(data)
 	var tc map[string]*template.Template
 
 	//check if template already exists in cache or  not TODO:
-	tc, _ = CreateTemplateCache()
+	tc, err := CreateTemplateCache()
+
+	if err != nil {
+		log.Fatal("Pta nhi kuch toh krb hai ", err)
+	}
 
 	t, ok := tc[html]
 
 	if !ok {
+		log.Println("mapping se")
 		log.Print("Something went wrong")
 	}
 
-	// buf := new(bytes.Buffer)
-	err := t.Execute(w, data)
-
-	// _, err := buf.WriteTo(w)
+	buf := new(bytes.Buffer)
+	err = t.Execute(buf, data)
 	if err != nil {
-		log.Fatal("Something Went Wrong")
+		// log.Fatal("I am here")
+		log.Fatal("Something Went Wrong1", err)
+	}
+
+	_, err = buf.WriteTo(w)
+	if err != nil {
+		log.Fatal("I am here  2")
+		log.Fatal("Something Went Wrong", err)
 	}
 
 }
