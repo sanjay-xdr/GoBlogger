@@ -16,7 +16,6 @@ type Blog struct {
 	SubHeading string
 	Content    string
 	UserId     int
-	CommentId  int
 	CreatedAt  time.Time
 	UpdatedAt  time.Time
 }

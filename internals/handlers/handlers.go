@@ -119,10 +119,30 @@ func CreateBlog(w http.ResponseWriter, r *http.Request) {
 	render.RenderTemplate(w, "createblog.page.html", "")
 }
 
-func PostCreateBlog(w http.ResponseWriter, r *http.Request) {
+func (m *Repositry) PostCreateBlog(w http.ResponseWriter, r *http.Request) {
 
 	//Here Add the Blog to database
 	//TODO: get userid in session
+
+	err := r.ParseForm()
+
+	if err != nil {
+		log.Fatal("COuld not parse form something went wrong")
+	}
+
+	heading := r.Form.Get("heading")
+	SubHeading := r.Form.Get("subheading")
+	content := r.Form.Get("content")
+
+	m.DbConn.InsertIntoBlogs(models.Blog{
+
+		Heading:    heading,
+		SubHeading: SubHeading,
+		Content:    content,
+		UserId:     1,
+		CreatedAt:  time.Now(),
+		UpdatedAt:  time.Now(),
+	})
 
 	http.Redirect(w, r, "/blogs", http.StatusSeeOther)
 

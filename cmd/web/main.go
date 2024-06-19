@@ -13,7 +13,7 @@ import (
 	"github.com/sanjay-xdr/goblogger/internals/render"
 )
 
-var configurations *config.AppConfig
+var configurations config.AppConfig
 var sessionManager *scs.SessionManager
 
 func main() {
@@ -34,7 +34,7 @@ func main() {
 		log.Fatal("Not able to connect to db ")
 	}
 
-	repo := handlers.NewRepo(configurations, db)
+	repo := handlers.NewRepo(&configurations, db)
 	handlers.NewHandlers(repo)
 
 	defer db.Close()
