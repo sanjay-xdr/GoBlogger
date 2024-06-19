@@ -35,14 +35,6 @@ func NewHandlers(r *Repositry) {
 
 func (m *Repositry) Login(w http.ResponseWriter, r *http.Request) {
 
-	//return the login page
-	_, err := m.DbConn.GetUserById(1)
-	m.App.Session.Put(r.Context(), "message", "Hello from a session!")
-
-	if err != nil {
-		log.Fatal("somethign went wronig ")
-	}
-
 	render.RenderTemplate(w, "login.page.html", &models.TemplateData{})
 }
 
@@ -74,7 +66,7 @@ func (m *Repositry) PostSignUp(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Print("About to sign up")
-	err = m.DbConn.InsertIntoUser(models.User{
+	userid, err := m.DbConn.InsertIntoUser(models.User{
 		FirstName: r.Form.Get("firstName"),
 		LastName:  r.Form.Get("lastName"),
 		Email:     r.Form.Get("email"),
@@ -86,6 +78,9 @@ func (m *Repositry) PostSignUp(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Print("NOt able to insert into the DB", err)
 	}
+
+	m.App.Session.Put(r.Context(), "userid", userid)
+	http.Redirect(w, r, "/blogs", http.StatusSeeOther)
 
 }
 
@@ -106,6 +101,12 @@ func HomePage(w http.ResponseWriter, r *http.Request) {
 func (m *Repositry) GetAllBlogs(w http.ResponseWriter, r *http.Request) {
 
 	//render all blogs
+
+	userid, ok := m.App.Session.Get(r.Context(), "userid").(int)
+
+	if !ok {
+		log.Println("Can't get userid from the session")
+	}
 	blogs, err := m.DbConn.GetAllBlogs()
 	if err != nil {
 		log.Fatal("SOmethign wrong ")
