@@ -82,6 +82,7 @@ func (m *Repositry) PostSignUp(w http.ResponseWriter, r *http.Request) {
 	}
 
 	m.App.Session.Put(r.Context(), "userid", userid)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 
 }
 
@@ -93,9 +94,18 @@ func UpdateUserById(w http.ResponseWriter, r *http.Request) {
 	//update the userby id
 }
 
-func HomePage(w http.ResponseWriter, r *http.Request) {
+func (m *Repositry) HomePage(w http.ResponseWriter, r *http.Request) {
 
-	render.RenderTemplate(w, "home.page.html", &models.TemplateData{})
+	id ,ok:= m.App.Session.Get(r.Context(), "userid").(int)
+	if !ok{
+		log.Print("Something went wrong")
+	}
+	fmt.Print(id)
+	render.RenderTemplate(w, "home.page.html", &models.TemplateData{
+		IntMap: map[string]int{
+			"id": id,
+		},
+	})
 
 }
 
@@ -165,6 +175,11 @@ func (m *Repositry) PostCreateBlog(w http.ResponseWriter, r *http.Request) {
 	//Here Add the Blog to database
 	//TODO: get userid in session
 
+	id, ok := m.App.Session.Get(r.Context(), "userid").(int)
+	if !ok {
+		log.Print("NOt able to get the id from the session")
+	}
+
 	err := r.ParseForm()
 
 	if err != nil {
@@ -180,7 +195,7 @@ func (m *Repositry) PostCreateBlog(w http.ResponseWriter, r *http.Request) {
 		Heading:    heading,
 		SubHeading: SubHeading,
 		Content:    content,
-		UserId:     1,
+		UserId:     id,
 		CreatedAt:  time.Now(),
 		UpdatedAt:  time.Now(),
 	})
