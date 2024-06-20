@@ -31,6 +31,7 @@ func Routes() http.Handler {
 	mux.Get("/blog/{id}", handlers.Repo.GetBlogById)
 	mux.Get("/user/{id}/createblog", handlers.CreateBlog)
 	mux.Post("/user/{id}/createblog", handlers.Repo.PostCreateBlog)
+	mux.Post("/comment", handlers.Repo.CreateComment)
 
 	return mux
 }

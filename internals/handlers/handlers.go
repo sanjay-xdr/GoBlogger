@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -203,4 +204,32 @@ func (m *Repositry) PostCreateBlog(w http.ResponseWriter, r *http.Request) {
 
 	http.Redirect(w, r, "/blogs", http.StatusSeeOther)
 
+}
+
+type CommentRequest struct {
+	BlogID  int    `json:"blogid"`
+	Comment string `json:"comment"`
+}
+
+func (m *Repositry) CreateComment(w http.ResponseWriter, r *http.Request) {
+
+	var req CommentRequest
+	err := json.NewDecoder(r.Body).Decode(&req)
+
+	if err != nil {
+		fmt.Print("Something went wrong", err)
+	}
+
+	id := m.App.Session.Get(r.Context(), "userid").(int)
+
+	m.DbConn.InsertIntoComments(models.Comment{
+		Comment:   req.Comment,
+		UserId:    id,
+		BlogId:    req.BlogID,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
+	})
+	response := map[string]string{"message": "Comment posted successfully"}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
 }

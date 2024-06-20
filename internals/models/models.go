@@ -22,6 +22,7 @@ type Blog struct {
 }
 
 type Comment struct {
+	Id        int
 	Comment   string
 	UserId    int
 	BlogId    int
