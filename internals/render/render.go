@@ -15,7 +15,7 @@ var pathToTemplates = "./templates"
 
 func RenderTemplate(w http.ResponseWriter, html string, data *models.TemplateData) {
 
-	fmt.Print(data)
+	// fmt.Print(data)
 	var tc map[string]*template.Template
 
 	//check if template already exists in cache or  not TODO:

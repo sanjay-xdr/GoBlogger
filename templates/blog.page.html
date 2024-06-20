@@ -3,12 +3,16 @@
 
 {{define "content"}}
 
-
 <section class="section">
     <div class="container">
       <div class="content">
-        <h1 class="subtitle is-2">What is Nullish Coalescing Operator?</h1>
-        <p class="subtitle is-5">Agar koi subtitle ho toh yaaha por add kr do wrna rhne dena </p>
+      
+
+     
+        <h1 class="subtitle is-2">{{.Data.blog.Heading}}</h1>
+        <p class="subtitle is-5">{{.Data.blog.SubHeading}} </p>
+     
+   
         <div class="media">
           <figure class="media-left">
             <p class="image is-48x48">
@@ -22,12 +26,14 @@
           </div>
         </div>
         <div class="content">
+       {{.Data.blog.Content}}
           <p>In this blog we are going to learn about Nullish coalescing operator denoted by (??) and how it is different from OR operator.</p>
           <p><strong>Nullish Coalescing:</strong> It is a logical operator that returns its right-hand side operand when its left-hand side operand is null or undefined, and otherwise returns its left-hand side operand.</p>
         </div>
       </div>
     </div>
   </section>
+
 
   <div class="container">
 <div  >

@@ -69,7 +69,7 @@ func (m *PostgresDBRepo) GetBlogById(id int) (models.Blog, error) {
 	stmt := `select id, heading, "subHeading" , content , "userId" , created_at , updated_at from blogs where id=$1`
 	row := m.DB.QueryRowContext(ctx, stmt, id)
 
-	err := row.Scan(&blog.Heading, &blog.SubHeading, &blog.Content, &blog.UserId, &blog.CreatedAt, &blog.UpdatedAt)
+	err := row.Scan(&blog.Id, &blog.Heading, &blog.SubHeading, &blog.Content, &blog.UserId, &blog.CreatedAt, &blog.UpdatedAt)
 	if err != nil {
 		if sql.ErrNoRows == err {
 			log.Fatal("THere is no row")

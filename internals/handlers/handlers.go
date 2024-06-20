@@ -5,8 +5,10 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 	"time"
 
+	"github.com/go-chi/chi"
 	"github.com/sanjay-xdr/goblogger/internals/Db"
 	"github.com/sanjay-xdr/goblogger/internals/config"
 	"github.com/sanjay-xdr/goblogger/internals/models"
@@ -123,17 +125,34 @@ func (m *Repositry) GetBlogById(w http.ResponseWriter, r *http.Request) {
 
 	//TODO: get the id from the paramenter and
 	//find that blog and comments with it and display here
-	userid, ok := m.App.Session.Get(r.Context(), "userid").(int)
+	// userid, ok := m.App.Session.Get(r.Context(), "userid").(int)
 
-	var mapdata = make(map[string]int)
-	mapdata["userid"] = userid
+	idStr := chi.URLParam(r, "id")
+	// // fmt.Print(id, "blog id this ")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
 
-	if !ok {
-		log.Println("Can't get userid from the session")
+		// http.Error(w, "Invalid blog ID", http.StatusBadRequest)
+		return
 	}
-	render.RenderTemplate(w, "blog.page.html", &models.TemplateData{
-		IntMap: mapdata,
-	})
+	// fmt.Fprintf(w, "Blog ID: %d", id)
+	// var mapdata = make(map[string]int)
+	// mapdata["userid"] = userid
+	blog, err := m.DbConn.GetBlogById(id)
+	if err != nil {
+
+		// http.Error(w, "Invalid blog ID", http.StatusBadRequest)
+		return
+	}
+	// fmt.Print(data)
+
+	data := &models.TemplateData{
+		Data: map[string]interface{}{
+			"blog": blog,
+		},
+	}
+
+	render.RenderTemplate(w, "blog.page.html", data)
 }
 
 func CreateBlog(w http.ResponseWriter, r *http.Request) {
