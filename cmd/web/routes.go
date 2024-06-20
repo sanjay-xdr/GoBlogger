@@ -13,6 +13,7 @@ func Routes() http.Handler {
 
 	mux.Use(loggerfunc)
 	mux.Use(SessionLoad)
+	mux.Use(Auth)
 	mux.Get("/", handlers.Repo.HomePage)
 
 	//auth

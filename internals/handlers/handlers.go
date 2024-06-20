@@ -37,6 +37,7 @@ func NewHandlers(r *Repositry) {
 
 func (m *Repositry) Login(w http.ResponseWriter, r *http.Request) {
 
+	fmt.Print("Geting login ")
 	render.RenderTemplate(w, "login.page.html", &models.TemplateData{})
 }
 
@@ -96,8 +97,8 @@ func UpdateUserById(w http.ResponseWriter, r *http.Request) {
 
 func (m *Repositry) HomePage(w http.ResponseWriter, r *http.Request) {
 
-	id ,ok:= m.App.Session.Get(r.Context(), "userid").(int)
-	if !ok{
+	id, ok := m.App.Session.Get(r.Context(), "userid").(int)
+	if !ok {
 		log.Print("Something went wrong")
 	}
 	fmt.Print(id)
